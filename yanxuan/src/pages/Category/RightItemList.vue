@@ -1,0 +1,100 @@
+<template>
+  <!--右侧菜单-->
+  <div class="right_menu_container">
+    <div class="banner" v-if="subCateObj.bannerUrl">
+      <img :src="subCateObj.bannerUrl" alt="bg">
+      <div class="categoryList">
+        <h4 class="title">{{subCateObj.name}}</h4>
+        <div class="listWrap">
+          <ul class="list">
+            <li class="item" v-for="(subCate,index) in subCateObj.subCateList" :key="index">
+              <a href="javascript:;">
+                <div class="imgContainer">
+                  <img :src="subCate.wapBannerUrl" alt="pic">
+                </div>
+                <div class="ItemTitle">{{subCate.name}}</div>
+              </a>
+            </li>
+
+          </ul>
+        </div>
+      </div>
+    </div>
+  </div>
+</template>
+
+<script>
+  export default {
+    props:{
+      subCateObj:Object
+    }
+  }
+</script>
+
+<style lang="stylus" rel="stylesheet/stylus">
+  @import "../../common/stylus/mixins.styl"
+  .right_menu_container
+    height 100%
+    margin-left 2.16rem
+    padding 0.4rem .04rem 0.28rem
+    .banner
+      position relative
+      text-align center
+      img
+        height (96/$unit)
+        border-radius (4/$unit)
+      .categoryList
+        .title
+          position relative
+          z-index 2
+          height (54/$unit)
+          line-height (54/$unit)
+          font-size (12/$unit)
+          text-align center
+          color #333
+          &:before
+            position absolute
+            z-index 2
+            top 50%
+            left 30%
+            content: ''
+            display block
+            height (2/$unit)
+            width (20/$unit)
+            background-color #ededed
+          &:after
+            position absolute
+            z-index 2
+            top 50%
+            right 30%
+            content: ''
+            display block
+            height (2/$unit)
+            width (20/$unit)
+            background-color #ededed
+
+        .listWrap
+          .list
+            text-align left
+            margin 0 (17/$unit)
+            overflow hidden
+            .item
+              display inline-block
+              box-sizing border-box
+              width (72/$unit)
+              height (108/$unit)
+              margin-left (10/$unit)
+              a
+                display block
+                width 100%
+                height 100%
+                .imgContainer
+                  background-color #fff
+                  img
+                    width (72/$unit)
+                    height (72/$unit)
+
+
+                .ItemTitle
+                  font-size (12/$unit)
+</style>

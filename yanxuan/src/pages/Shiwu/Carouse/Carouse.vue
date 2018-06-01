@@ -1,0 +1,132 @@
+<template>
+  <!--识物页的轮播-->
+  <div class="bannerWrap">
+    <div class="slideContainer swiper-container" id="shiwuSwiper">
+      <ul class="swiper-wrapper shiwu_list">
+        <li class="swiper-slide shiwu_item" v-for="(carouse,index) in bannerData" :key="index">
+          <a href="javascript:;">
+            <img src="../../../common/imgs/shiwu/slide/01.jpg" alt="pic">
+            <div class="content">
+              <div class="subTitle">{{carouse.subTitle}}</div>
+              <div class="title">{{carouse.title}}</div>
+              <div class="desc">{{carouse.desc}}</div>
+            </div>
+          </a>
+        </li>
+      </ul>
+    </div>
+  </div>
+</template>
+
+<script>
+  import {mapState} from 'vuex'
+  import Swiper from 'swiper'
+  import 'swiper/dist/css/swiper.min.css'
+  export default {
+    computed:{
+      ...mapState(['bannerData'])
+    },
+    watch:{
+      bannerData(val){
+        console.log(val)
+      }
+    },
+    mounted(){
+      this.$store.dispatch('getBannerList',()=>{
+        this.$nextTick(()=>{
+          new Swiper('#shiwuSwiper',{
+            slidesPerView: 1.15,
+            centeredSlides: true,
+            onInit: function (swiper) {
+              swiper.slides[1].className = 'swiper-slide swiper-slide-active'
+            },
+            loop: true,
+            spaceBetween: 10,
+
+          })
+          })
+        })
+    }
+  }
+</script>
+
+<style lang="stylus" rel="stylesheet/stylus">
+  @import "../../../common/stylus/mixins.styl"
+  .bannerWrap
+    box-sizing border-box
+    margin-top (50/$unit)
+    height (216.5/$unit)
+    width 10rem
+    .slideContainer
+      width 10rem
+      height 100%
+      background-clip border
+      .shiwu_list
+        box-sizing border-box
+        white-space nowrap
+        height (216.5/$unit)
+        //padding (5/$unit) (12/$unit)
+        .shiwu_item
+          display inline-block
+          //width 10rem
+          //padding 0 0.8rem
+          height (216.5/$unit)
+          box-sizing border-box
+          //margin 0 auto
+          a
+            display block
+            width 100%
+            height 100%
+            overflow hidden
+            img
+              display block
+              width 100%
+              height 100%
+              border-radius (10/$unit)
+            .content
+              position absolute
+              top 0
+              left 0
+              bottom 0
+              right 0
+              z-index 100
+              margin auto
+              width (233/$unit)
+              height 2.64rem
+              text-align center
+              background-color rgba(255,255,255,0.9)
+              .subTitle
+                color #7f7f7f
+                font-size (12/$unit)
+                padding 0 (6/$unit)
+                margin (18/$unit)
+                &:before
+                  position absolute
+                  top (24/$unit)
+                  left (64/$unit)
+                  content ''
+                  display block
+                  height (1/$unit)
+                  width (22/$unit)
+                  background-color #7f7f7f
+                &:after
+                  position absolute
+                  top (24/$unit)
+                  right (64/$unit)
+                  content ''
+                  display block
+                  height (1/$unit)
+                  width (22/$unit)
+                  background-color #7f7f7f
+              .title
+                color #333333
+                font-size (16/$unit)
+                line-height 0.64rem
+                margin-top (8/$unit)
+                font-weight 700
+              .desc
+                color #333333
+                font-size (12/$unit)
+                line-height (18/$unit)
+                margin-top (2/$unit)
+</style>
